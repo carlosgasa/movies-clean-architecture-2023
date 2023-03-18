@@ -1,10 +1,11 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MoviesViewModel : ViewModel() {
+@HiltViewModel
+class MoviesViewModel @Inject constructor() : ViewModel() {
 
 
 }

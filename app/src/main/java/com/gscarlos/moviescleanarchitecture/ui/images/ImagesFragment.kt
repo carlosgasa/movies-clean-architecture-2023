@@ -1,4 +1,4 @@
-package com.gscarlos.moviescleanarchitecture.ui.locations
+package com.gscarlos.moviescleanarchitecture.ui.images
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentLocationsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ImagesFragment : Fragment() {
 
     private var _binding: FragmentLocationsBinding? = null

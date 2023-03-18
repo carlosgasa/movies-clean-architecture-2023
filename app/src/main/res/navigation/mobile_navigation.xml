@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_images"
-        android:name="com.gscarlos.moviescleanarchitecture.ui.locations.ImagesFragment"
+        android:name="com.gscarlos.moviescleanarchitecture.ui.images.ImagesFragment"
         android:label="@string/title_images"
         tools:layout="@layout/fragment_locations" />
 </navigation>
