@@ -20,9 +20,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField("String", "MOVIE_API_KEY", "\"12142b99418780796047ff5e05dfb096\"")
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MOVIE_API_KEY", "\"12142b99418780796047ff5e05dfb096\"")
+
         }
     }
     compileOptions {
@@ -59,8 +67,9 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.44'
 
     //Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
+    implementation "androidx.room:room-runtime:2.5.0"
+    implementation "androidx.room:room-ktx:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:4.9.0"

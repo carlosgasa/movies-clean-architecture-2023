@@ -7,10 +7,11 @@ object AppDatabaseBuilder {
 
     private const val DATABASE_NAME = "database-movies"
 
-    fun getInstance(context: Context) : AppDatabase{
+    fun getInstance(context: Context): AppDatabase {
         return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java, DATABASE_NAME
-        ).allowMainThreadQueries().build()
+            context, AppDatabase::class.java, DATABASE_NAME
+        )
+            .allowMainThreadQueries()
+            .build()
     }
 }
