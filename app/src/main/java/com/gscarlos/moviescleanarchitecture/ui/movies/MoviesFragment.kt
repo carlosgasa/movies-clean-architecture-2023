@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentMoviesBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
+import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesAdapterEvent
+import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesHorizontalAdapter
+import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesVerticalAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +27,9 @@ class MoviesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var adapter: MoviesAdapter
+    private lateinit var adapterPopular: MoviesHorizontalAdapter
+    private lateinit var adapterMostRated: MoviesHorizontalAdapter
+    private lateinit var adapterRecommended: MoviesVerticalAdapter
 
 
     override fun onCreateView(
@@ -43,10 +49,42 @@ class MoviesFragment : Fragment() {
     }
 
     private fun initElements() {
-        adapter = MoviesAdapter {
-            openDetail(it)
+
+        adapterPopular = MoviesHorizontalAdapter {
+            when(it) {
+                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+            }
+
         }
-        binding.rvMovies.adapter = adapter
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMoviesPopular.layoutManager = layoutManager
+        binding.rvMoviesPopular.adapter = adapterPopular
+
+        adapterMostRated = MoviesHorizontalAdapter {
+            when(it) {
+                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+            }
+
+        }
+        val layoutManager2 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMoviesMostRated.layoutManager = layoutManager2
+        binding.rvMoviesMostRated.adapter = adapterMostRated
+
+
+        adapterRecommended = MoviesVerticalAdapter {
+            when(it) {
+                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+            }
+
+        }
+        binding.rvMoviesReccomended.adapter = adapterRecommended
+    }
+
+    private fun onFavorite(movie: MovieToShow) {
+        viewModel.onFavorite(movie)
     }
 
     private fun initUiState() {
@@ -72,7 +110,9 @@ class MoviesFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.moviesState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collectLatest {
-                adapter.submitList(it)
+                adapterPopular.submitList(it)
+                adapterMostRated.submitList(it)
+                adapterRecommended.submitList(it)
             }
         }
     }

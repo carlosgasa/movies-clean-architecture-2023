@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies")
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey
+    val id: Int,
     val title: String,
     val overview: String,
     val releaseDate: String,
@@ -15,5 +16,12 @@ data class MovieEntity(
     val originalTitle: String,
     val popularity: Double,
     val voteAverage: Double,
+    val type: Int,
     val favorite: Boolean
 )
+
+sealed class MovieType {
+    class Popular(val value: Int = 1) : MovieType()
+    class Recommended(val value: Int = 2) : MovieType()
+    class MostRated(val value: Int = 3) : MovieType()
+}

@@ -43,4 +43,8 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
+    fun onFavorite(movie: MovieToShow) {
+        repository.updateFavorite(movie)
+    }
+
 }

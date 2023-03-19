@@ -5,8 +5,8 @@ import com.gscarlos.moviescleanarchitecture.data.remote.responses.MovieDto
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
 
-fun MovieDto.toRoomMovie() = MovieEntity(
-    0,
+fun MovieDto.toRoomMovie(type:Int) = MovieEntity(
+    id,
     title,
     overview,
     releaseDate,
@@ -16,6 +16,7 @@ fun MovieDto.toRoomMovie() = MovieEntity(
     originalTitle,
     popularity,
     voteAverage,
+    type,
     false
 )
 

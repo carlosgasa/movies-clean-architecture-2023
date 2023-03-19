@@ -1,9 +1,7 @@
-package com.gscarlos.moviescleanarchitecture.ui.movies
+package com.gscarlos.moviescleanarchitecture.ui.movies.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.recyclerview.widget.DiffUtil
@@ -12,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.common.Constants
 import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
-import com.gscarlos.moviescleanarchitecture.databinding.ItemMovieBinding
+import com.gscarlos.moviescleanarchitecture.databinding.ItemHorizontalMovieBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
-class MoviesAdapter(private val listener: (MovieToShow) -> Unit) :
-    ListAdapter<MovieToShow, MoviesAdapter.MovieViewHolder>(
+
+class MoviesHorizontalAdapter(private val listener: (MoviesAdapterEvent) -> Unit) :
+    ListAdapter<MovieToShow, MoviesHorizontalAdapter.MoviesHorizontalViewHolder>(
         object : DiffUtil.ItemCallback<MovieToShow>() {
             override fun areItemsTheSame(oldItem: MovieToShow, newItem: MovieToShow): Boolean =
                 oldItem.id == newItem.id
@@ -31,20 +30,23 @@ class MoviesAdapter(private val listener: (MovieToShow) -> Unit) :
         }
     ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return parent.inflate(R.layout.item_movie, false)
-            .let { view -> ItemMovieBinding.bind(view) }
-            .let { binding -> MovieViewHolder(binding) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesHorizontalViewHolder {
+        return MoviesHorizontalViewHolder(
+            ItemHorizontalMovieBinding.bind(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_horizontal_movie, parent, false)
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesHorizontalViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie)
-        holder.itemView.setOnClickListener { listener(movie) }
+        holder.bind(movie) { listener(MoviesAdapterEvent.OnFavorite(movie))  }
+        holder.itemView.setOnClickListener { listener(MoviesAdapterEvent.OnItem(movie)) }
     }
 
     override fun onBindViewHolder(
-        holder: MovieViewHolder,
+        holder: MoviesHorizontalViewHolder,
         position: Int,
         payloads: MutableList<Any>
     ) {
@@ -56,18 +58,17 @@ class MoviesAdapter(private val listener: (MovieToShow) -> Unit) :
         if (payload is Boolean) holder.setIsFavorite(payload)
     }
 
-    class MovieViewHolder(private val binding: ItemMovieBinding) :
+    class MoviesHorizontalViewHolder(private val binding: ItemHorizontalMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MovieToShow) = with(binding) {
+        fun bind(item: MovieToShow, onFavorite :(MovieToShow) -> Unit) = with(binding) {
             ImageUtils.load(imgCover, "${Constants.BASE_MOVIE_IMAGE_URL}w185/${item.posterPath}")
             txtTitle.text = buildSpannedString {
-                bold { append("${itemView.context.getString(R.string.lbl_title)}: ") }
-                append(item.title)
+                bold { append(item.title) }
             }
             txtVoteAverage.text = buildSpannedString {
-                bold { append("${itemView.context.getString(R.string.lbl_vote_average)}: ") }
                 append(item.voteAverage.toString())
             }
+            imgFavorite.setOnClickListener { onFavorite(item) }
             setIsFavorite(item.isFavorite)
         }
 
@@ -78,8 +79,4 @@ class MoviesAdapter(private val listener: (MovieToShow) -> Unit) :
         }
 
     }
-
-    private fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
-        LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
-
 }

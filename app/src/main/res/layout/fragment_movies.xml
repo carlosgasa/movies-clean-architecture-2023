@@ -6,17 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".ui.movies.MoviesFragment">
 
+    <TextView
+        android:id="@+id/tv_popular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rv_movies_popular"
+        android:text="Populares" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies"
+        android:background="@color/purple_200"
+        android:id="@+id/rv_movies_popular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_popular"
+        app:layout_constraintBottom_toTopOf="@id/tv_most_rated"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_horizontal_movie"/>
+
+    <TextView
+        android:id="@+id/tv_most_rated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_movies_popular"
+        app:layout_constraintBottom_toTopOf="@id/rv_movies_most_rated"
+        android:text="Rated" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/cardview_dark_background"
+        android:id="@+id/rv_movies_most_rated"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_most_rated"
+        app:layout_constraintBottom_toTopOf="@id/tv_recommended"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_horizontal_movie"/>
+
+    <TextView
+        android:id="@+id/tv_recommended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_movies_most_rated"
+        app:layout_constraintBottom_toTopOf="@id/rv_movies_reccomended"
+        android:text="Recomendados" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/teal_200"
+        android:id="@+id/rv_movies_reccomended"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recommended"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="5"
-        tools:listitem="@layout/item_movie" />
+        tools:listitem="@layout/item_vertical_movie" />
 
     <ProgressBar
         android:id="@+id/pb_loading"

@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     suspend fun loadMovies(): Flow<DataResult>
     suspend fun getMovies() : Flow<List<MovieToShow>>
+    fun updateFavorite(movie: MovieToShow)
 }

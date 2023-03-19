@@ -18,5 +18,10 @@ interface MovieDao : BaseDao<MovieEntity> {
     fun findMovieById(id: Int): Flow<MovieEntity>
 
     @Query("UPDATE movies SET favorite=:isFavorite WHERE id=:id")
-    fun toggleFavorite(id: Int, isFavorite: Boolean)
+    fun updateFavorite(id: Int, isFavorite: Boolean)
+
+    @Query("SELECT favorite FROM movies WHERE id=:id")
+    fun checkFavoriteStatus(id: Int): Boolean
+
+
 }

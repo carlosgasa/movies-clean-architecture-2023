@@ -3,6 +3,7 @@ package com.gscarlos.moviescleanarchitecture.data.datasource.impl
 import com.gscarlos.moviescleanarchitecture.BuildConfig
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
+import com.gscarlos.moviescleanarchitecture.data.local.model.MovieType
 import com.gscarlos.moviescleanarchitecture.data.remote.MoviesApiService
 import com.gscarlos.moviescleanarchitecture.data.toRoomMovie
 import com.gscarlos.moviescleanarchitecture.data.toShow
@@ -26,14 +27,31 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun loadMovies(): Flow<DataResult> = flow {
         if (db.movieDao().getMoviesCount() == 0) {
-            emit(DataResult.Loading)
-            val result = apiService.getMovies(BuildConfig.MOVIE_API_KEY)
-            if (result.isSuccessful && result.body() != null) {
-                result.body()?.results?.map { it.toRoomMovie() }?.let {
-                    db.movieDao().insertBulk(it)
+            try {
+                emit(DataResult.Loading)
+                val popular = apiService.getPopularMovies(BuildConfig.MOVIE_API_KEY)
+                val mostRated = apiService.getMostRatedMovies(BuildConfig.MOVIE_API_KEY)
+                val recommended = apiService.getRecommendedMovies(BuildConfig.MOVIE_API_KEY)
+
+                if (popular.isSuccessful && mostRated.isSuccessful && recommended.isSuccessful) {
+                    popular.body()?.results?.map { it.toRoomMovie(MovieType.Popular().value) }
+                        ?.let {
+                            db.movieDao().insertBulk(it)
+                        }
+                    mostRated.body()?.results?.map { it.toRoomMovie(MovieType.MostRated().value) }
+                        ?.let {
+                            db.movieDao().insertBulk(it)
+                        }
+                    recommended.body()?.results?.map { it.toRoomMovie(MovieType.Recommended().value) }
+                        ?.let {
+                            db.movieDao().insertBulk(it)
+                        }
                     emit(DataResult.Success)
+                } else {
+                    emit(DataResult.Error)
                 }
-            } else {
+            } catch (e: Exception) {
+                e.printStackTrace()
                 emit(DataResult.Error)
             }
         } else {
@@ -48,6 +66,12 @@ class MovieRepositoryImpl @Inject constructor(
             }.let { listToShow ->
                 send(listToShow)
             }
+        }
+    }
+
+    override fun updateFavorite(movie: MovieToShow) {
+        db.movieDao().checkFavoriteStatus(movie.id).let {
+            db.movieDao().updateFavorite(movie.id, !it)
         }
     }
 }
