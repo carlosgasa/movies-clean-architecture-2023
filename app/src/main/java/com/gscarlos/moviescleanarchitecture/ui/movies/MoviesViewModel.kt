@@ -1,9 +1,10 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
+import com.gscarlos.moviescleanarchitecture.data.datasource.impl.DataResult
+import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,10 +20,25 @@ class MoviesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<MoviesViewState>(MoviesViewState.Start)
     val uiState = _uiState.asStateFlow()
 
-    fun getMovies() {
+    private val _moviesState = MutableStateFlow<List<MovieToShow>>(emptyList())
+    val moviesState = _moviesState.asStateFlow()
+
+    init {
         viewModelScope.launch {
             repository.getMovies().collectLatest {
-                Log.i("MoviesViewModel", "$it")
+                _moviesState.value = it
+            }
+        }
+    }
+
+    fun loadMovies() {
+        viewModelScope.launch {
+            repository.loadMovies().collectLatest {
+                when (it) {
+                    DataResult.Error -> _uiState.value = MoviesViewState.Error
+                    DataResult.Loading -> MoviesViewState.Loading
+                    DataResult.Success -> MoviesViewState.Success
+                }
             }
         }
     }

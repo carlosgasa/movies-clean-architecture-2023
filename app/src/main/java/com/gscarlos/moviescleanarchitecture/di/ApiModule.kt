@@ -1,5 +1,6 @@
 package com.gscarlos.moviescleanarchitecture.di
 
+import com.gscarlos.moviescleanarchitecture.common.Constants.BASE_MOVIE_URL
 import com.gscarlos.moviescleanarchitecture.data.remote.MoviesApiService
 import dagger.Module
 import dagger.Provides
@@ -18,7 +19,7 @@ object ApiModule {
     fun provideApiService(): MoviesApiService {
         return Retrofit
             .Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_MOVIE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MoviesApiService::class.java)

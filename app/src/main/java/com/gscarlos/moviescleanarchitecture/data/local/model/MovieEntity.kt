@@ -3,8 +3,8 @@ package com.gscarlos.moviescleanarchitecture.data.local.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class Movie(
+@Entity(tableName = "movies")
+data class MovieEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title: String,
     val overview: String,

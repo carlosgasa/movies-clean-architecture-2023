@@ -5,4 +5,7 @@
     <string name="title_movies">Peliculas</string>
     <string name="title_locations">Localizaciones</string>
     <string name="title_images">Imagenes</string>
+    <string name="lbl_title">Título</string>
+    <string name="lbl_vote_average">Voto promedio</string>
+    <string name="error">Error en la carga</string>
 </resources>
