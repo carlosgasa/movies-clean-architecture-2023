@@ -15,8 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
@@ -107,12 +109,12 @@ fun ProfileHeader(user: User) {
             contentScale = ContentScale.Crop,
             contentDescription = "Recipe item favorite"
         )
+        Text(text = user.birthDate, color = MaterialTheme.colors.surface)
         Text(
             text = user.description,
             color = MaterialTheme.colors.surface,
             textAlign = TextAlign.Justify,
         )
-        Text(text = user.birthDate, color = MaterialTheme.colors.surface)
     }
 }
 
@@ -120,7 +122,7 @@ fun ProfileHeader(user: User) {
 fun ContentProfile(properties: ProfileScreenContentProperties, onEvent: (MoviesItemEvent) -> Unit) {
     Column() {
         if (properties.rated.isNotEmpty()) {
-            Text(text = "Calificadas", color = MaterialTheme.colors.surface)
+            Text(text = "Calificadas", fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
             LazyRow {
                 items(properties.rated) { movie ->
                     MovieItem(movie = movie) {
@@ -131,7 +133,7 @@ fun ContentProfile(properties: ProfileScreenContentProperties, onEvent: (MoviesI
         }
 
         if (properties.favorites.isNotEmpty()) {
-            Text(text = "Favoritos", color = MaterialTheme.colors.surface)
+            Text(text = "Favoritos", fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
             LazyRow {
                 items(properties.favorites) { movie ->
                     MovieItem(movie = movie) {

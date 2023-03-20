@@ -1,4 +1,4 @@
-package com.gscarlos.moviescleanarchitecture.data.remote.responses
+package com.gscarlos.moviescleanarchitecture.data.remote.network.responses
 
 import com.google.gson.annotations.SerializedName
 

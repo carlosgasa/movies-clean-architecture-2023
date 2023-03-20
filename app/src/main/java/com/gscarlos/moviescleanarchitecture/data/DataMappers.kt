@@ -2,7 +2,7 @@ package com.gscarlos.moviescleanarchitecture.data
 
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieEntity
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieType
-import com.gscarlos.moviescleanarchitecture.data.remote.responses.MovieDto
+import com.gscarlos.moviescleanarchitecture.data.remote.network.responses.MovieDto
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
 

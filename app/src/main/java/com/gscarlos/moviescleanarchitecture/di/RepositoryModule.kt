@@ -5,7 +5,7 @@ import com.gscarlos.moviescleanarchitecture.data.datasource.UserRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.MovieRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.UserRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
-import com.gscarlos.moviescleanarchitecture.data.remote.MoviesApiService
+import com.gscarlos.moviescleanarchitecture.data.remote.network.MoviesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

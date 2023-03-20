@@ -4,7 +4,7 @@ import com.gscarlos.moviescleanarchitecture.BuildConfig
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieType
-import com.gscarlos.moviescleanarchitecture.data.remote.MoviesApiService
+import com.gscarlos.moviescleanarchitecture.data.remote.network.MoviesApiService
 import com.gscarlos.moviescleanarchitecture.data.toRoomMovie
 import com.gscarlos.moviescleanarchitecture.data.toShow
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow

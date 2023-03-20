@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "146135494870",
+    "project_id": "movies-clean-arch",
+    "storage_bucket": "movies-clean-arch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146135494870:android:39983c3a649d6101779977",
+        "android_client_info": {
+          "package_name": "com.gscarlos.moviescleanarchitecture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146135494870-cgqqoajh031dothcsi22dp3sofq647o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDNGWkQ-OnhLl5PxeJA1buijWli5XxHkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146135494870-cgqqoajh031dothcsi22dp3sofq647o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 package com.gscarlos.moviescleanarchitecture.di
 
 import com.gscarlos.moviescleanarchitecture.common.Constants.BASE_MOVIE_URL
-import com.gscarlos.moviescleanarchitecture.data.remote.MoviesApiService
+import com.gscarlos.moviescleanarchitecture.data.remote.network.MoviesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
