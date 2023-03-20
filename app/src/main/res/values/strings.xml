@@ -11,4 +11,5 @@
     <string name="lbl_popular">Populares</string>
     <string name="lbl_rated">Mas calificadas</string>
     <string name="lbl_recommended">Recomendados</string>
+    <string name="lbl_rate_movie">Calificar pelicula</string>
 </resources>

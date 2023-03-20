@@ -2,6 +2,7 @@ package com.gscarlos.moviescleanarchitecture.domain.model
 
 data class MovieToShow(
     val id: Int = 0,
+    val myRate: Int = 0,
     val title: String = "",
     val overview: String = "",
     val releaseDate: String = "",

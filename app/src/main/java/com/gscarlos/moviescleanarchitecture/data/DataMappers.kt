@@ -8,6 +8,7 @@ import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
 fun MovieDto.toRoomMovie(type:Int) = MovieEntity(
     id,
+    0,
     title,
     overview,
     releaseDate,
@@ -26,6 +27,7 @@ fun MovieDto.toRoomMovie(type:Int) = MovieEntity(
 
 fun MovieEntity.toShow(): MovieToShow = MovieToShow(
     id,
+    myRate,
     title,
     overview,
     releaseDate,
