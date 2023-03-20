@@ -40,4 +40,7 @@ interface MovieDao : BaseDao<MovieEntity> {
 
     @Query("UPDATE movies SET recommended=1 WHERE id=:id")
     fun setRecommended(id: Int)
+
+    @Query("UPDATE movies SET myRate=:newRate WHERE id=:id")
+    fun setRate(id: Int, newRate: Float)
 }

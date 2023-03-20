@@ -4,27 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentProfileBinding
+import com.gscarlos.moviescleanarchitecture.ui.compose.theme.MoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ) = ComposeView(requireContext()).apply {
+        setViewCompositionStrategy(
+            ViewCompositionStrategy.DisposeOnLifecycleDestroyed(
+                viewLifecycleOwner
+            )
+        )
+        setContent {
+            MoviesTheme {
+                Text(text = "Hola mundo", color = MaterialTheme.colors.primary)
+            }
+        }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

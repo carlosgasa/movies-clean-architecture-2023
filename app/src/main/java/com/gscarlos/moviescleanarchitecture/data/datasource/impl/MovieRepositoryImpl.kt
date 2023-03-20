@@ -117,4 +117,8 @@ class MovieRepositoryImpl @Inject constructor(
             db.movieDao().updateFavorite(movie.id, !it)
         }
     }
+
+    override fun setRate(id: Int, newRate: Float) {
+        db.movieDao().setRate(id, newRate*2)
+    }
 }

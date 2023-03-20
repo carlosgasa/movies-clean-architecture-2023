@@ -11,4 +11,5 @@ interface MovieRepository {
     suspend fun getMostRatedMovies(): Flow<List<MovieToShow>>
     suspend fun getRecommendedMovies(): Flow<List<MovieToShow>>
     fun updateFavorite(movie: MovieToShow)
+    fun setRate(id: Int, newRate: Float)
 }

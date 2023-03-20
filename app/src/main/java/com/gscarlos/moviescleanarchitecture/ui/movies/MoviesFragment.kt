@@ -1,9 +1,6 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +11,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gscarlos.moviescleanarchitecture.R
-import com.gscarlos.moviescleanarchitecture.common.Constants
-import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
-import com.gscarlos.moviescleanarchitecture.databinding.DialogRateBinding
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentMoviesBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesAdapterEvent
@@ -26,7 +20,6 @@ import com.gscarlos.moviescleanarchitecture.ui.movies.rate.DialogRate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment() {
@@ -138,14 +131,13 @@ class MoviesFragment : Fragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
     private fun openDetail(movie: MovieToShow) {
         DialogRate.Builder(binding.root.context)
             .setLayout(layoutInflater)
             .setMovie(movie)
             .build()
             .show {
-
+                viewModel.setRate(movie.id, it)
             }
     }
 

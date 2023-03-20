@@ -1,5 +1,6 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies.rate
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class DialogRate private constructor(
         fun build() = DialogRate(context, movie, layoutInflater)
     }
 
+    @SuppressLint("InflateParams")
     fun show(onRate: (Float) -> Unit) {
         DialogRateBinding.bind(layoutInflater.inflate(R.layout.dialog_rate, null))
             .let { dialogBinding ->

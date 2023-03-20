@@ -65,4 +65,8 @@ class MoviesViewModel @Inject constructor(
         repository.updateFavorite(movie)
     }
 
+    fun setRate(id: Int, newRate: Float) {
+        repository.setRate(id, newRate)
+    }
+
 }
