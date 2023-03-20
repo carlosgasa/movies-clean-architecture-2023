@@ -8,4 +8,7 @@
     <string name="lbl_title">Título</string>
     <string name="lbl_vote_average">Voto promedio</string>
     <string name="error">Error en la carga</string>
+    <string name="lbl_popular">Populares</string>
+    <string name="lbl_rated">Mas calificadas</string>
+    <string name="lbl_recommended">Recomendados</string>
 </resources>

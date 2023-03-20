@@ -1,6 +1,7 @@
 package com.gscarlos.moviescleanarchitecture.data
 
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieEntity
+import com.gscarlos.moviescleanarchitecture.data.local.model.MovieType
 import com.gscarlos.moviescleanarchitecture.data.remote.responses.MovieDto
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
@@ -16,8 +17,10 @@ fun MovieDto.toRoomMovie(type:Int) = MovieEntity(
     originalTitle,
     popularity,
     voteAverage,
-    type,
-    false
+    popular = type == MovieType.Popular().value,
+    mostRated = type == MovieType.MostRated().value,
+    recommended = type == MovieType.Recommended().value,
+    favorite = false
 )
 
 

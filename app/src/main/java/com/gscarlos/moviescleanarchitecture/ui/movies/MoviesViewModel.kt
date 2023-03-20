@@ -20,13 +20,31 @@ class MoviesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<MoviesViewState>(MoviesViewState.Start)
     val uiState = _uiState.asStateFlow()
 
-    private val _moviesState = MutableStateFlow<List<MovieToShow>>(emptyList())
-    val moviesState = _moviesState.asStateFlow()
+    private val _popularMoviesState = MutableStateFlow<List<MovieToShow>>(emptyList())
+    val popularMoviesState = _popularMoviesState.asStateFlow()
+
+    private val _mostRatedMoviesState = MutableStateFlow<List<MovieToShow>>(emptyList())
+    val mostRatedMoviesState = _mostRatedMoviesState.asStateFlow()
+
+    private val _recommendedMoviesState = MutableStateFlow<List<MovieToShow>>(emptyList())
+    val recommendedMoviesState = _recommendedMoviesState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            repository.getMovies().collectLatest {
-                _moviesState.value = it
+            repository.getPopularMovies().collectLatest {
+                _popularMoviesState.value = it
+            }
+        }
+
+        viewModelScope.launch {
+            repository.getMostRatedMovies().collectLatest { list ->
+                _mostRatedMoviesState.value = list.sortedByDescending { it.voteAverage }
+            }
+        }
+
+        viewModelScope.launch {
+            repository.getRecommendedMovies().collectLatest {
+                _recommendedMoviesState.value = it
             }
         }
     }
@@ -36,8 +54,8 @@ class MoviesViewModel @Inject constructor(
             repository.loadMovies().collectLatest {
                 when (it) {
                     DataResult.Error -> _uiState.value = MoviesViewState.Error
-                    DataResult.Loading -> MoviesViewState.Loading
-                    DataResult.Success -> MoviesViewState.Success
+                    DataResult.Loading -> _uiState.value = MoviesViewState.Loading
+                    DataResult.Success -> _uiState.value = MoviesViewState.Success
                 }
             }
         }

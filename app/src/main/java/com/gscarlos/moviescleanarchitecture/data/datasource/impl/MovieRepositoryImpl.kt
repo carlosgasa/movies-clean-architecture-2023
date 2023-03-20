@@ -1,5 +1,6 @@
 package com.gscarlos.moviescleanarchitecture.data.datasource.impl
 
+import android.util.Log
 import com.gscarlos.moviescleanarchitecture.BuildConfig
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
@@ -35,16 +36,34 @@ class MovieRepositoryImpl @Inject constructor(
 
                 if (popular.isSuccessful && mostRated.isSuccessful && recommended.isSuccessful) {
                     popular.body()?.results?.map { it.toRoomMovie(MovieType.Popular().value) }
-                        ?.let {
-                            db.movieDao().insertBulk(it)
+                        ?.let { entityList ->
+                            entityList.forEach {
+                                if(db.movieDao().movieExistsById(it.id)) {
+                                    db.movieDao().setPopular(it.id)
+                                } else {
+                                    db.movieDao().insert(it)
+                                }
+                            }
                         }
                     mostRated.body()?.results?.map { it.toRoomMovie(MovieType.MostRated().value) }
-                        ?.let {
-                            db.movieDao().insertBulk(it)
+                        ?.let { entityList ->
+                            entityList.forEach {
+                                if(db.movieDao().movieExistsById(it.id)) {
+                                    db.movieDao().setMostRated(it.id)
+                                } else {
+                                    db.movieDao().insert(it)
+                                }
+                            }
                         }
                     recommended.body()?.results?.map { it.toRoomMovie(MovieType.Recommended().value) }
-                        ?.let {
-                            db.movieDao().insertBulk(it)
+                        ?.let { entityList ->
+                            entityList.forEach {
+                                if(db.movieDao().movieExistsById(it.id)) {
+                                    db.movieDao().setRecommended(it.id)
+                                } else {
+                                    db.movieDao().insert(it)
+                                }
+                            }
                         }
                     emit(DataResult.Success)
                 } else {
@@ -59,11 +78,35 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovies(): Flow<List<MovieToShow>> = channelFlow {
-        db.movieDao().getMovies().collectLatest { listEntities ->
+    override suspend fun getPopularMovies(): Flow<List<MovieToShow>> = channelFlow {
+        db.movieDao().getPopularMovies().collectLatest {
+                listEntities ->
             listEntities.map { entity ->
                 entity.toShow()
             }.let { listToShow ->
+                send(listToShow)
+            }
+        }
+    }
+
+    override suspend fun getMostRatedMovies(): Flow<List<MovieToShow>> = channelFlow {
+        db.movieDao().getPopularMovies().collectLatest {
+                listEntities ->
+            listEntities.map { entity ->
+                entity.toShow()
+            }.let { listToShow ->
+                send(listToShow)
+            }
+        }
+    }
+
+    override suspend fun getRecommendedMovies(): Flow<List<MovieToShow>> = channelFlow {
+        db.movieDao().getRecommendedMovies().collectLatest {
+                listEntities ->
+            listEntities.map { entity ->
+                entity.toShow()
+            }.let { listToShow ->
+                Log.i("TAG", "getRecommendedMovies: $listToShow")
                 send(listToShow)
             }
         }

@@ -1,6 +1,7 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,10 +110,23 @@ class MoviesFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.moviesState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collectLatest {
+            viewModel.popularMoviesState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collectLatest {
                 adapterPopular.submitList(it)
+                binding.tvPopular.visibility = View.VISIBLE
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.mostRatedMoviesState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collectLatest {
                 adapterMostRated.submitList(it)
+                binding.tvMostRated.visibility = View.VISIBLE
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.recommendedMoviesState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collectLatest {
                 adapterRecommended.submitList(it)
+                binding.tvRecommended.visibility = View.VISIBLE
             }
         }
     }

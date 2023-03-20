@@ -22,4 +22,10 @@
     <style name="Theme.MoviesCleanArchitecture.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MoviesCleanArchitecture.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TitleText">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
 </resources>
