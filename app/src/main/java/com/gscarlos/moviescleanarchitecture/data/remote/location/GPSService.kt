@@ -9,12 +9,15 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.gscarlos.moviescleanarchitecture.R
+import com.gscarlos.moviescleanarchitecture.data.remote.firebase.FirebaseProvider
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GPSService : Service() {
 
-    companion object {
-        private const val NOTIFICATION_CHANNEL_ID = "gps_notification"
-    }
+    @Inject
+    lateinit var firebaseProvider: FirebaseProvider
 
     override fun onCreate() {
         super.onCreate()
@@ -42,12 +45,16 @@ class GPSService : Service() {
             this
         ) {
             Log.i("TAG", "onStartCommand: $it")
-//            FirebaseService().saveLocationGPS(it)
+//            firebaseProvider.saveLocationGPS(it)
         }
         return START_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder? {
         return null
+    }
+
+    companion object {
+        private const val NOTIFICATION_CHANNEL_ID = "gps_notification"
     }
 }

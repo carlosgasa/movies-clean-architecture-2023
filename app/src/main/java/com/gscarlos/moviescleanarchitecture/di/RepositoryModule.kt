@@ -1,10 +1,13 @@
 package com.gscarlos.moviescleanarchitecture.di
 
+import com.gscarlos.moviescleanarchitecture.data.datasource.LocationRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.UserRepository
+import com.gscarlos.moviescleanarchitecture.data.datasource.impl.LocationRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.MovieRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.UserRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
+import com.gscarlos.moviescleanarchitecture.data.remote.firebase.FirebaseProvider
 import com.gscarlos.moviescleanarchitecture.data.remote.network.MoviesApiService
 import dagger.Module
 import dagger.Provides
@@ -26,5 +29,11 @@ object RepositoryModule {
     @Provides
     fun providesUserRepository(): UserRepository {
         return UserRepositoryImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun providesLocationRepository(provider: FirebaseProvider): LocationRepository {
+        return LocationRepositoryImpl(provider)
     }
 }

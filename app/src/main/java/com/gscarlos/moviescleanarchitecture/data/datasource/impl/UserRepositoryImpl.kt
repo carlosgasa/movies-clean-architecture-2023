@@ -3,8 +3,9 @@ package com.gscarlos.moviescleanarchitecture.data.datasource.impl
 import com.gscarlos.moviescleanarchitecture.data.datasource.UserRepository
 import com.gscarlos.moviescleanarchitecture.domain.model.User
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class UserRepositoryImpl : UserRepository {
+class UserRepositoryImpl @Inject constructor(): UserRepository {
     override fun getLocalUser() = flow {
         //Cargar usuario de prueba
         User(

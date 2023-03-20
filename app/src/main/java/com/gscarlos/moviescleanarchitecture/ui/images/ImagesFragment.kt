@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.gscarlos.moviescleanarchitecture.databinding.FragmentImagesBinding
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentLocationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ImagesFragment : Fragment() {
 
-    private var _binding: FragmentLocationsBinding? = null
+    private var _binding: FragmentImagesBinding? = null
 
     private val binding get() = _binding!!
 
@@ -20,7 +21,7 @@ class ImagesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLocationsBinding.inflate(inflater, container, false)
+        _binding = FragmentImagesBinding.inflate(inflater, container, false)
         return binding.root
     }
 

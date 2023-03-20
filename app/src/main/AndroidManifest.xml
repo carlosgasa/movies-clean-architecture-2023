@@ -28,6 +28,10 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyARA14D5_NAOSfQueltMyIMOX2iLwmQ-aQ" />
+
         <service
             android:name=".data.remote.location.GPSService"
             android:enabled="true"

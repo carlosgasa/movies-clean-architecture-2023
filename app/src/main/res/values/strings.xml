@@ -12,4 +12,10 @@
     <string name="lbl_rated">Mas calificadas</string>
     <string name="lbl_recommended">Recomendados</string>
     <string name="lbl_rate_movie">Calificar pelicula</string>
+    <string name="lbl_empty_locations">No hay ubicaciones</string>
+    <string name="txt_attention">Atención</string>
+    <string name="txt_request_to_use">Para poder usar la app debes dar permiso de ubicación</string>
+    <string name="txt_understand">Entendio</string>
+    <string name="txt_cancel">Cancelar</string>
+    <string name="txt_no_permission">Sin permiso :(</string>
 </resources>
