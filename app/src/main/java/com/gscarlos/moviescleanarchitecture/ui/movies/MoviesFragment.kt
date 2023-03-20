@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentMoviesBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
-import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesAdapterEvent
+import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesItemEvent
 import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesHorizontalAdapter
 import com.gscarlos.moviescleanarchitecture.ui.movies.adapter.MoviesVerticalAdapter
 import com.gscarlos.moviescleanarchitecture.ui.movies.rate.DialogRate
@@ -53,8 +53,8 @@ class MoviesFragment : Fragment() {
 
         adapterPopular = MoviesHorizontalAdapter {
             when(it) {
-                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
-                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+                is MoviesItemEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesItemEvent.OnItem -> openDetail(it.movie)
             }
 
         }
@@ -64,8 +64,8 @@ class MoviesFragment : Fragment() {
 
         adapterMostRated = MoviesHorizontalAdapter {
             when(it) {
-                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
-                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+                is MoviesItemEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesItemEvent.OnItem -> openDetail(it.movie)
             }
 
         }
@@ -76,8 +76,8 @@ class MoviesFragment : Fragment() {
 
         adapterRecommended = MoviesVerticalAdapter {
             when(it) {
-                is MoviesAdapterEvent.OnFavorite -> onFavorite(it.movie)
-                is MoviesAdapterEvent.OnItem -> openDetail(it.movie)
+                is MoviesItemEvent.OnFavorite -> onFavorite(it.movie)
+                is MoviesItemEvent.OnItem -> openDetail(it.movie)
             }
 
         }

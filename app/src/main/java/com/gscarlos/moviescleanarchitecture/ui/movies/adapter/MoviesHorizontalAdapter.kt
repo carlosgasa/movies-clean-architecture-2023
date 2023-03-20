@@ -14,7 +14,7 @@ import com.gscarlos.moviescleanarchitecture.databinding.ItemHorizontalMovieBindi
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
 
-class MoviesHorizontalAdapter(private val listener: (MoviesAdapterEvent) -> Unit) :
+class MoviesHorizontalAdapter(private val listener: (MoviesItemEvent) -> Unit) :
     ListAdapter<MovieToShow, MoviesHorizontalAdapter.MoviesHorizontalViewHolder>(
         object : DiffUtil.ItemCallback<MovieToShow>() {
             override fun areItemsTheSame(oldItem: MovieToShow, newItem: MovieToShow): Boolean =
@@ -41,8 +41,8 @@ class MoviesHorizontalAdapter(private val listener: (MoviesAdapterEvent) -> Unit
 
     override fun onBindViewHolder(holder: MoviesHorizontalViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie) { listener(MoviesAdapterEvent.OnFavorite(movie))  }
-        holder.itemView.setOnClickListener { listener(MoviesAdapterEvent.OnItem(movie)) }
+        holder.bind(movie) { listener(MoviesItemEvent.OnFavorite(movie))  }
+        holder.itemView.setOnClickListener { listener(MoviesItemEvent.OnItem(movie)) }
     }
 
     override fun onBindViewHolder(

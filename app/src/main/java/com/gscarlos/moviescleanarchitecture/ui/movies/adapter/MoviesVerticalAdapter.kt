@@ -1,9 +1,7 @@
 package com.gscarlos.moviescleanarchitecture.ui.movies.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +13,7 @@ import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
 import com.gscarlos.moviescleanarchitecture.databinding.ItemVerticalMovieBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 
-class MoviesVerticalAdapter(private val listener: (MoviesAdapterEvent) -> Unit) :
+class MoviesVerticalAdapter(private val listener: (MoviesItemEvent) -> Unit) :
     ListAdapter<MovieToShow, MoviesVerticalAdapter.MovieVerticalViewHolder>(
         object : DiffUtil.ItemCallback<MovieToShow>() {
             override fun areItemsTheSame(oldItem: MovieToShow, newItem: MovieToShow): Boolean =
@@ -42,8 +40,8 @@ class MoviesVerticalAdapter(private val listener: (MoviesAdapterEvent) -> Unit) 
 
     override fun onBindViewHolder(holder: MovieVerticalViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie) { listener(MoviesAdapterEvent.OnFavorite(movie)) }
-        holder.itemView.setOnClickListener { listener(MoviesAdapterEvent.OnItem(movie)) }
+        holder.bind(movie) { listener(MoviesItemEvent.OnFavorite(movie)) }
+        holder.itemView.setOnClickListener { listener(MoviesItemEvent.OnItem(movie)) }
     }
 
     override fun onBindViewHolder(

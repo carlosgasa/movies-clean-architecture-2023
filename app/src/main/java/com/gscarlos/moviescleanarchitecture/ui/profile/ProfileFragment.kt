@@ -2,7 +2,6 @@ package com.gscarlos.moviescleanarchitecture.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -28,7 +27,7 @@ class ProfileFragment : Fragment() {
         )
         setContent {
             MoviesTheme {
-                Text(text = "Hola mundo", color = MaterialTheme.colors.primary)
+                ProfileScreen(layoutInflater)
             }
         }
 

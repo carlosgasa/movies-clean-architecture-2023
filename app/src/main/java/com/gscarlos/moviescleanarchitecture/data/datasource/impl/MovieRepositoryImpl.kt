@@ -1,6 +1,5 @@
 package com.gscarlos.moviescleanarchitecture.data.datasource.impl
 
-import android.util.Log
 import com.gscarlos.moviescleanarchitecture.BuildConfig
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.local.database.AppDatabase
@@ -106,7 +105,6 @@ class MovieRepositoryImpl @Inject constructor(
             listEntities.map { entity ->
                 entity.toShow()
             }.let { listToShow ->
-                Log.i("TAG", "getRecommendedMovies: $listToShow")
                 send(listToShow)
             }
         }
@@ -120,5 +118,27 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun setRate(id: Int, newRate: Float) {
         db.movieDao().setRate(id, newRate*2)
+    }
+
+    override suspend fun getFavoriteMovies(): Flow<List<MovieToShow>> = channelFlow {
+        db.movieDao().getFavoriteMovies().collectLatest {
+                listEntities ->
+            listEntities.map { entity ->
+                entity.toShow()
+            }.let { listToShow ->
+                send(listToShow)
+            }
+        }
+    }
+
+    override suspend fun getMyRateMovies(): Flow<List<MovieToShow>> = channelFlow {
+        db.movieDao().getMyRateMovies().collectLatest {
+                listEntities ->
+            listEntities.map { entity ->
+                entity.toShow()
+            }.let { listToShow ->
+                send(listToShow)
+            }
+        }
     }
 }

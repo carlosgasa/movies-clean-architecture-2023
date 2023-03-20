@@ -20,6 +20,12 @@ interface MovieDao : BaseDao<MovieEntity> {
     @Query("SELECT * FROM movies WHERE recommended=1")
     fun getRecommendedMovies(): Flow<List<MovieEntity>>
 
+    @Query("SELECT * FROM movies WHERE myRate!=0")
+    fun getMyRateMovies(): Flow<List<MovieEntity>>
+
+    @Query("SELECT * FROM movies WHERE favorite=1")
+    fun getFavoriteMovies(): Flow<List<MovieEntity>>
+
     @Query("SELECT * FROM movies WHERE id=:id")
     fun findMovieById(id: Int): Flow<MovieEntity>
 

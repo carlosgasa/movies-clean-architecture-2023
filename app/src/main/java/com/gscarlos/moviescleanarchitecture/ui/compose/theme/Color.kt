@@ -12,7 +12,8 @@ val GreenLight = Color(0xFF19bc66)
 val DarkColorPalette = darkColors(
     primary = Color.White,
     primaryVariant = GrayDark,
-    secondary = Color.Blue
+    secondary = Color.Blue,
+    surface = Color.White
 )
 
 val LightColorPalette = lightColors(
@@ -20,6 +21,7 @@ val LightColorPalette = lightColors(
     primaryVariant = GrayDark,
     secondary = GreenLight,
     background = BackgroundLight,
+    surface = Color.Black
 
     /* Other default colors to override
     surface = Color.White,
