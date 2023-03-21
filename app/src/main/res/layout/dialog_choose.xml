@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="@dimen/between_big"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +11,7 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Galeria"
+        android:text="@string/txt_gallery"
         android:focusable="true" />
     <TextView
         android:id="@+id/tv_camera"
@@ -19,6 +19,6 @@
         style="@style/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Camara"
+        android:text="@string/txt_camera"
         android:focusable="true" />
 </LinearLayout>

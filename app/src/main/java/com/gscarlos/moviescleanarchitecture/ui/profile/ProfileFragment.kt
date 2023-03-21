@@ -3,12 +3,9 @@ package com.gscarlos.moviescleanarchitecture.ui.profile
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import com.gscarlos.moviescleanarchitecture.databinding.FragmentProfileBinding
 import com.gscarlos.moviescleanarchitecture.ui.compose.theme.MoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
 

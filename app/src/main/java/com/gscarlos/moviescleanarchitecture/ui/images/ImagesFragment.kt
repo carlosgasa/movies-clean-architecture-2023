@@ -89,29 +89,7 @@ class ImagesFragment : Fragment() {
                 .setLayout(layoutInflater)
                 .build()
                 .show(onCamera = {
-                    if (!checkPermission()) {
-                        MaterialAlertDialogBuilder(binding.root.context)
-                            .setTitle(getString(R.string.txt_attention))
-                            .setMessage(getString(R.string.txt_request_to_use))
-                            .setPositiveButton(getString(R.string.txt_understand)) { _, _ ->
-                                requestPermissionLauncher.launch(
-                                    arrayOf(
-                                        Manifest.permission.ACCESS_FINE_LOCATION,
-                                        Manifest.permission.CAMERA
-                                    )
-                                )
-                            }
-                            .setNegativeButton(getString(R.string.txt_cancel)) { _, _ ->
-                                Toast.makeText(
-                                    binding.root.context,
-                                    R.string.txt_no_permission,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            .show()
-                    } else {
-                        takePhoto()
-                    }
+                    resolvePermissions()
                 }, onGallery = {
                     selectImage()
                 })
@@ -124,6 +102,32 @@ class ImagesFragment : Fragment() {
         binding.rvFiles.setHasFixedSize(true)
         binding.rvFiles.layoutManager = GridLayoutManager(requireActivity(), 3)
         binding.rvFiles.adapter = mAdapter
+    }
+
+    private fun resolvePermissions() {
+        if (!checkPermission()) {
+            MaterialAlertDialogBuilder(binding.root.context)
+                .setTitle(getString(R.string.txt_attention))
+                .setMessage(getString(R.string.txt_request_to_use_camera))
+                .setPositiveButton(getString(R.string.txt_understand)) { _, _ ->
+                    requestPermissionLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.CAMERA
+                        )
+                    )
+                }
+                .setNegativeButton(getString(R.string.txt_cancel)) { _, _ ->
+                    Toast.makeText(
+                        binding.root.context,
+                        R.string.txt_no_permission,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .show()
+        } else {
+            takePhoto()
+        }
     }
 
     private fun takePhoto() {

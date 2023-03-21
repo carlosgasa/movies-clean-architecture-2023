@@ -23,7 +23,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Ejemplo 20/20/2020"/>
+                tools:text="Ejemplo 20/20/2023"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_small"
-                    tools:text="Ejemplo 20/20/2020"/>
+                    tools:text="Ejemplo 20/20/2023"/>
 
                 <TextView
                     android:id="@+id/tvLongitude"
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_small"
-                    tools:text="Ejemplo 20/20/2020"/>
+                    tools:text="Ejemplo 20/20/2023"/>
             </LinearLayout>
         </LinearLayout>
 

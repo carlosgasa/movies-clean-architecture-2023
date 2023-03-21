@@ -19,13 +19,14 @@ import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentLocationsBinding
 import com.gscarlos.moviescleanarchitecture.ui.locations.adapter.LocationsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 
 class LocationsFragment : Fragment(), OnMapReadyCallback {
 
-    private val locationsViewModel: LocationsViewModel by viewModels()
+    private val viewModel: LocationsViewModel by viewModels()
     private lateinit var mAdapter: LocationsAdapter
     private lateinit var map: GoogleMap
 
@@ -45,13 +46,14 @@ class LocationsFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         initComponents()
         initUiState()
+        viewModel.loadLocationsFromFirebase()
     }
 
     private fun initUiState() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-            locationsViewModel.locationsState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect {
+            viewModel.locationsState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collectLatest {
 
                     when (it) {
                         LocationsViewState.Start -> {}

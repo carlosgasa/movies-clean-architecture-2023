@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gscarlos.moviescleanarchitecture.R
+import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
 import com.gscarlos.moviescleanarchitecture.databinding.ItemFileBinding
 import com.gscarlos.moviescleanarchitecture.domain.model.FileToShow
 
@@ -22,7 +23,7 @@ class FileAdapter (private var files: List<FileToShow> = emptyList()) : Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(files[position],context )
+        holder.bind(files[position])
     }
 
     override fun getItemCount(): Int {
@@ -38,10 +39,10 @@ class FileAdapter (private var files: List<FileToShow> = emptyList()) : Recycler
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ItemFileBinding.bind(view)
+        private val binding = ItemFileBinding.bind(view)
 
-        fun bind(fileModel: FileToShow, context : Context) {
-            Glide.with(context).load(fileModel.url).into(binding.ivFile)
+        fun bind(fileModel: FileToShow) {
+            ImageUtils.load(binding.ivFile, fileModel.url)
         }
 
     }

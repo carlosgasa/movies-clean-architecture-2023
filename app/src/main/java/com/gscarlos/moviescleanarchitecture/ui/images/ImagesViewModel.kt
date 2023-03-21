@@ -1,14 +1,10 @@
 package com.gscarlos.moviescleanarchitecture.ui.images
 
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gscarlos.moviescleanarchitecture.data.datasource.FilesRepository
 import com.gscarlos.moviescleanarchitecture.data.remote.firebase.impl.OnUploadFileListener
-import com.gscarlos.moviescleanarchitecture.domain.model.FileToShow
-import com.gscarlos.moviescleanarchitecture.ui.locations.LocationsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,17 +50,4 @@ class ImagesViewModel @Inject constructor(
             }
         }
     }
-
-
-//    override fun onSuccess() {
-//        loadFilesFromFirebase()//recargar la coleccion de imagenes para mostrar la que se subio
-//        _loadingState.value = false
-//
-//    }
-//
-//    override fun onError() {
-//        errorData.postValue(true)
-//        _loadingState.value = false
-//
-//    }
 }

@@ -6,7 +6,6 @@ import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.data.remote.firebase.FirebaseProvider
@@ -24,7 +23,7 @@ class GPSService : Service() {
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setOngoing(false)
-                .setContentText("getString(R.string.txt_notification_description)")
+                .setContentText(getString(R.string.txt_notification_description))
                 .setSmallIcon(R.drawable.ic_launcher_background)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager: NotificationManager =
@@ -44,8 +43,7 @@ class GPSService : Service() {
         GPSHelper().startListeningUserLocation(
             this
         ) {
-            Log.i("TAG", "onStartCommand: $it")
-//            firebaseProvider.saveLocationGPS(it)
+            firebaseProvider.saveLocationGPS(it)
         }
         return START_STICKY
     }

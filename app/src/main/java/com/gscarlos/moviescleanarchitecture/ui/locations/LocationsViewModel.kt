@@ -20,11 +20,7 @@ class LocationsViewModel  @Inject constructor(
     private val _locationsState = MutableStateFlow<LocationsViewState>(LocationsViewState.Start)
     val locationsState = _locationsState.asStateFlow()
 
-    init {
-        loadLocationsFromFirebase()
-    }
-
-    private fun loadLocationsFromFirebase() {
+    fun loadLocationsFromFirebase() {
         viewModelScope.launch {
             _locationsState.value = LocationsViewState.Loading
             locationRepository.getLocations().collectLatest { result ->

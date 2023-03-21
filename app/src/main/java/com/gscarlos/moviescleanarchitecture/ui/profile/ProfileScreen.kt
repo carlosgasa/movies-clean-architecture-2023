@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
+import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 import com.gscarlos.moviescleanarchitecture.domain.model.User
 import com.gscarlos.moviescleanarchitecture.ui.compose.composables.MovieItem
@@ -78,7 +80,7 @@ fun ProfileScreenContent(
             Text(
                 modifier = Modifier.padding(100.dp),
                 textAlign = TextAlign.Center,
-                text = "No has calificado o dado favorito a peliculas",
+                text = stringResource(R.string.txt_movies_empty),
                 color = MaterialTheme.colors.surface
             )
         } else {
@@ -122,7 +124,7 @@ fun ProfileHeader(user: User) {
 fun ContentProfile(properties: ProfileScreenContentProperties, onEvent: (MoviesItemEvent) -> Unit) {
     Column() {
         if (properties.rated.isNotEmpty()) {
-            Text(text = "Calificadas", fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
+            Text(text = stringResource(R.string.txt_rated), fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
             LazyRow {
                 items(properties.rated) { movie ->
                     MovieItem(movie = movie) {
@@ -133,7 +135,7 @@ fun ContentProfile(properties: ProfileScreenContentProperties, onEvent: (MoviesI
         }
 
         if (properties.favorites.isNotEmpty()) {
-            Text(text = "Favoritos", fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
+            Text(text = stringResource(R.string.txt_favorites), fontStyle = FontStyle.Italic, fontSize = 18.sp, color = MaterialTheme.colors.surface)
             LazyRow {
                 items(properties.favorites) { movie ->
                     MovieItem(movie = movie) {

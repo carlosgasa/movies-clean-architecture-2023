@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initServiceGPS() {
-        //Checar permisos para inicializar el servicio de gps
         if(!checkPermission()){
             MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.txt_attention))
