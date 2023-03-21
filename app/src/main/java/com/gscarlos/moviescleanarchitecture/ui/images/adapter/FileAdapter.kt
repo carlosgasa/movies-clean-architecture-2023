@@ -1,4 +1,4 @@
-package com.gscarlos.moviescleanarchitecture.ui.images
+package com.gscarlos.moviescleanarchitecture.ui.images.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

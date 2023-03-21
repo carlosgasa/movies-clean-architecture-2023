@@ -2,8 +2,10 @@ package com.gscarlos.moviescleanarchitecture.ui.images
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +22,13 @@ import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
 import com.gscarlos.moviescleanarchitecture.common.utils.InternetUtils
 import com.gscarlos.moviescleanarchitecture.databinding.FragmentImagesBinding
+import com.gscarlos.moviescleanarchitecture.ui.images.adapter.FileAdapter
+import com.gscarlos.moviescleanarchitecture.ui.images.choose.DialogChooseSourceImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ImagesFragment : Fragment() {
-
 
     private val viewModel: ImagesViewModel by viewModels()
     private lateinit var mAdapter: FileAdapter
@@ -75,27 +78,44 @@ class ImagesFragment : Fragment() {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadingState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
-                binding.pbLoading.visibility = if(it) View.VISIBLE else View.INVISIBLE
+                binding.pbLoading.visibility = if (it) View.VISIBLE else View.INVISIBLE
             }
         }
     }
 
     private fun initComponents() {
         binding.fabSelect.setOnClickListener {
-            if(!checkPermission()) {
-                MaterialAlertDialogBuilder(binding.root.context)
-                    .setTitle(getString(R.string.txt_attention))
-                    .setMessage(getString(R.string.txt_request_to_use))
-                    .setPositiveButton(getString(R.string.txt_understand)) { _, _ ->
-                        requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
+            DialogChooseSourceImage.Builder(binding.root.context)
+                .setLayout(layoutInflater)
+                .build()
+                .show(onCamera = {
+                    if (!checkPermission()) {
+                        MaterialAlertDialogBuilder(binding.root.context)
+                            .setTitle(getString(R.string.txt_attention))
+                            .setMessage(getString(R.string.txt_request_to_use))
+                            .setPositiveButton(getString(R.string.txt_understand)) { _, _ ->
+                                requestPermissionLauncher.launch(
+                                    arrayOf(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.CAMERA
+                                    )
+                                )
+                            }
+                            .setNegativeButton(getString(R.string.txt_cancel)) { _, _ ->
+                                Toast.makeText(
+                                    binding.root.context,
+                                    R.string.txt_no_permission,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            .show()
+                    } else {
+                        takePhoto()
                     }
-                    .setNegativeButton(getString(R.string.txt_cancel)) { _, _ ->
-                        Toast.makeText(binding.root.context, R.string.txt_no_permission, Toast.LENGTH_SHORT).show()
-                    }
-                    .show()
-            } else {
-                takePhoto()
-            }
+                }, onGallery = {
+                    selectImage()
+                })
+
 
         }
 
@@ -110,11 +130,16 @@ class ImagesFragment : Fragment() {
         resultLauncherCamera.launch(null)
     }
 
+    private fun selectImage() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        resultLauncherGallery.launch(intent)
+    }
+
 
     private val resultLauncherCamera =
-        registerForActivityResult(ActivityResultContracts.TakePicturePreview() ) {
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
             it?.let {
-                ImageUtils.getImageUri(binding.root.context, it)?.let {  uri ->
+                ImageUtils.getImageUri(binding.root.context, it)?.let { uri ->
                     viewModel.uploadFile(uri)
 
                 }
@@ -125,7 +150,7 @@ class ImagesFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 it.data?.data?.let { uri ->
-                    if(InternetUtils.isNetworkAvailable(binding.root.context)) {
+                    if (InternetUtils.isNetworkAvailable(binding.root.context)) {
                         viewModel.uploadFile(uri)
                     } else {
                         Toast.makeText(
@@ -139,20 +164,26 @@ class ImagesFragment : Fragment() {
         }
 
     private fun checkPermission(): Boolean {
-        val result = ContextCompat.checkSelfPermission(binding.root.context, Manifest.permission.ACCESS_FINE_LOCATION)
-        val result1 = ContextCompat.checkSelfPermission(binding.root.context, Manifest.permission.CAMERA)
+        val result = ContextCompat.checkSelfPermission(
+            binding.root.context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        val result1 =
+            ContextCompat.checkSelfPermission(binding.root.context, Manifest.permission.CAMERA)
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        var isGranted = true
-        permissions.entries.forEach {
-            isGranted = isGranted && it.value
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            var isGranted = true
+            permissions.entries.forEach {
+                isGranted = isGranted && it.value
+            }
+            if (isGranted) {
+                takePhoto()
+            } else {
+                Toast.makeText(binding.root.context, R.string.txt_no_permission, Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
-        if (isGranted) {
-            takePhoto()
-        } else {
-            Toast.makeText(binding.root.context, R.string.txt_no_permission, Toast.LENGTH_SHORT).show()
-        }
-    }
 }

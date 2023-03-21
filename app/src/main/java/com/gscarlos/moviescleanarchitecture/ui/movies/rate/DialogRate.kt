@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gscarlos.moviescleanarchitecture.R
 import com.gscarlos.moviescleanarchitecture.common.Constants
 import com.gscarlos.moviescleanarchitecture.common.utils.ImageUtils
@@ -46,7 +47,7 @@ class DialogRate private constructor(
                 dialogBinding.ratingBar.rating =
                     if (movie.myRate == 0) 0f else movie.myRate.toFloat() / 2
 
-                AlertDialog.Builder(context).setView(dialogBinding.root).create().let { dialog ->
+                MaterialAlertDialogBuilder(context).setView(dialogBinding.root).create().let { dialog ->
                     dialogBinding.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
                         onRate(rating)
                         dialog.dismiss()
