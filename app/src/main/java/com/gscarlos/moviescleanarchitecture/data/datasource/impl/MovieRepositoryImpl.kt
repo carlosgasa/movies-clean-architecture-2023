@@ -110,16 +110,6 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateFavorite(movie: MovieToShow) {
-        db.movieDao().checkFavoriteStatus(movie.id).let {
-            db.movieDao().updateFavorite(movie.id, !it)
-        }
-    }
-
-    override fun setRate(id: Int, newRate: Float) {
-        db.movieDao().setRate(id, newRate*2)
-    }
-
     override suspend fun getFavoriteMovies(): Flow<List<MovieToShow>> = channelFlow {
         db.movieDao().getFavoriteMovies().collectLatest {
                 listEntities ->

@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.DataResult
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
+import com.gscarlos.moviescleanarchitecture.domain.usecases.UpdateFavoriteUseCase
+import com.gscarlos.moviescleanarchitecture.domain.usecases.UpdateRateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,7 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val repository: MovieRepository,
+    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
+    private val updateRateUseCase: UpdateRateUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MoviesViewState>(MoviesViewState.Start)
@@ -62,11 +66,11 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun onFavorite(movie: MovieToShow) {
-        repository.updateFavorite(movie)
+        updateFavoriteUseCase.updateFavorite(movie)
     }
 
     fun setRate(id: Int, newRate: Float) {
-        repository.setRate(id, newRate)
+        updateRateUseCase.setRate(id, newRate)
     }
 
 }
