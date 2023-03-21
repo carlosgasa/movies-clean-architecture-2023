@@ -1,5 +1,17 @@
 # Pantallas
 
+## Resumen
+Principales caracteristiscas
+- MVVM
+- Hibrido entre compose y xml
+- Entorno reactivo
+- Manejo de validaciones para datos vacios
+- Manejo de permisos
+- Inyeccion de dependencias
+- TDD
+- Persistencia de datos
+- Uso de camara nativa
+
 ## Perfil (Compose) 
 <img src="images/profile.png">
 
