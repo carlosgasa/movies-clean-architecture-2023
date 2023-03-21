@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         if (isGranted) {
             startGPSService()
         } else {
-            Toast.makeText(this, "R.string.txt_no_permission", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.txt_no_permission, Toast.LENGTH_SHORT).show()
         }
     }
 }
