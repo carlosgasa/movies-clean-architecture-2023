@@ -18,4 +18,6 @@
     <string name="txt_understand">Entendio</string>
     <string name="txt_cancel">Cancelar</string>
     <string name="txt_no_permission">Sin permiso :(</string>
+    <string name="txt_files_empty">No hay imágenes para mostrar</string>
+    <string name="txt_error_uploading">Error al subir la imagen</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.gscarlos.moviescleanarchitecture.di
 
+import com.gscarlos.moviescleanarchitecture.data.datasource.FilesRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.LocationRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.MovieRepository
 import com.gscarlos.moviescleanarchitecture.data.datasource.UserRepository
+import com.gscarlos.moviescleanarchitecture.data.datasource.impl.FilesRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.LocationRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.MovieRepositoryImpl
 import com.gscarlos.moviescleanarchitecture.data.datasource.impl.UserRepositoryImpl
@@ -35,5 +37,11 @@ object RepositoryModule {
     @Provides
     fun providesLocationRepository(provider: FirebaseProvider): LocationRepository {
         return LocationRepositoryImpl(provider)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFilesRepository(provider: FirebaseProvider): FilesRepository {
+        return FilesRepositoryImpl(provider)
     }
 }

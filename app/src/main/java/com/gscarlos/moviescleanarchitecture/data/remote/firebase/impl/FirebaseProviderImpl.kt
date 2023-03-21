@@ -2,6 +2,8 @@ package com.gscarlos.moviescleanarchitecture.data.remote.firebase.impl
 
 import android.location.Location
 import android.net.Uri
+import android.util.Log
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -9,6 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import com.gscarlos.moviescleanarchitecture.data.remote.firebase.FirebaseProvider
 import java.util.*
+import kotlin.math.log
 
 
 sealed class OnUploadFileListener {

@@ -2,8 +2,10 @@ package com.gscarlos.moviescleanarchitecture.data
 
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieEntity
 import com.gscarlos.moviescleanarchitecture.data.local.model.MovieType
+import com.gscarlos.moviescleanarchitecture.data.remote.firebase.model.FileDto
 import com.gscarlos.moviescleanarchitecture.data.remote.firebase.model.LocationDto
 import com.gscarlos.moviescleanarchitecture.data.remote.network.responses.MovieDto
+import com.gscarlos.moviescleanarchitecture.domain.model.FileToShow
 import com.gscarlos.moviescleanarchitecture.domain.model.LocationToShow
 import com.gscarlos.moviescleanarchitecture.domain.model.MovieToShow
 import java.util.Date
@@ -46,6 +48,11 @@ fun MovieEntity.toShow(): MovieToShow = MovieToShow(
 fun LocationDto.toShow(): LocationToShow = LocationToShow(
     latitud ?: 0.0,
     longitud ?: 0.0,
+    fecha?.toDate() ?: Date()
+)
+
+fun FileDto.toShow(): FileToShow = FileToShow(
+    url ?: "",
     fecha?.toDate() ?: Date()
 )
 
