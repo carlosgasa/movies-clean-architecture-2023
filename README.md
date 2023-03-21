@@ -56,7 +56,7 @@
 ```
 
 ### Vistas y tema
-La vista de perfil esta hecha en Compose, todas las pantallas y dialogos soportan tema oscuro y claro
+La vista de perfil esta hecha en Compose, las demas estan en xml, todas las pantallas y dialogos soportan tema oscuro y claro
 
 <img src="images/theme.png">
 
@@ -68,3 +68,5 @@ El manejo de permisos se hace a traves de dialogos amigables, y se valida los re
 ### Que mejoraria
 Para el tema de mostrar mensajes, me gustaria cambiar los toast por algunas alertas mas amigables y mas controlables.
 Actualmente, las calificaciones y usuario se manejan de manera local con info de prueba. Me hubiera gustado usar el endpoint del api para obtener un session id de invitado para hacerlo mas completo todo el flujo.
+Tambien, agregaria una capa mas a los repositorios, para asi inyectar solamente casos de uso a los viewmodels.
+Por ultimo, si la ubicacion fuese de minimo 15min, me gustaria mejor haber usado un worker para manejar el tema de la periodicidad.
