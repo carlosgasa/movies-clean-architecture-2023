@@ -16,7 +16,7 @@ fun MovieDto.toRoomMovie(type:Int) = MovieEntity(
     0,
     title,
     overview,
-    releaseDate,
+    releaseDate ?: "Sin fecha aun",
     posterPath,
     backdropPath ?: posterPath,
     originalLanguage,
